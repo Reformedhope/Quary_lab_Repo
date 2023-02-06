@@ -147,9 +147,17 @@ SELECT `school_db_instructor`.`id`,
 # Print the instructors name and courses that he belongs to in the terminal
 # (Do not hard code his name in the print)
 def problem_three(request):
+  instructor_classes = Course.objects.filter(instructor_id = 2)
+  for instructor_classes in instructor_classes:
+    
+    print(f'{instructor_classes.instructor.first_name} {instructor_classes.instructor.last_name}')
+    print("Courses:")
+    print(f'-{instructor_classes.name}')
+    
+ 
 
-    return complete(request)
-
+  return complete(request)
+ # Why CANT I GET IT TO PRINT THE COARSESONE RIGHT AFTER ANOTHER 
 
 # Supporting Query Method Documentation:
 """
@@ -193,8 +201,15 @@ SELECT `school_db_instructor`.`id`,
 
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
+  students = Student.objects.count()
+  courses = Course.objects.count()
+  teacher= Instructor.objects.count()
+  print(f' Students Count: {students}')
+  print(f'Courses Count: {courses}')
+  print(f'Instructor Count: {teacher}')
 
-    return complete(request)
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -237,8 +252,15 @@ SELECT COUNT(*) AS `__count`
 # Print the new student's id, full name, year, and gpa to the terminal
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
+  p = Student.objects.create(first_name="Harry", last_name="Potter",year=2023, gpa=3.5 )
+  # new_student = Student.objects.filter(student_id = 12)
+  print(f'ID: {p.id}')
+  print(f'Full Name: {p.first_name} {p.last_name}')
+  print(f'Year: {p.year}')
+  print(f'GPA: {p.gpa}')
 
-    return complete(request)
+  return complete(request)
+
 
 
 # Supporting Query Method Documentation:
@@ -271,7 +293,12 @@ VALUES ('Kyle', 'Harwood', 9, 3.0)
 def problem_six(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    student_id = 15
+    Student.objects.filter(pk=student_id).update(gpa=3.7)
+    student = Student.objects.get(pk=student_id)
+    print(f'ID: {student.id}')
+    print(f'Full Name: {student.first_name}, {student.last_name}')
+    print(f'GPA: {student.gpa}')
 
     return complete(request)
 
