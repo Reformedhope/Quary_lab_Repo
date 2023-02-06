@@ -147,12 +147,13 @@ SELECT `school_db_instructor`.`id`,
 # Print the instructors name and courses that he belongs to in the terminal
 # (Do not hard code his name in the print)
 def problem_three(request):
-  instructor_classes = Course.objects.filter(instructor_id = 2)
-  for instructor_classes in instructor_classes:
+  instructor = Instructor.objects.filter(pk = 2)
+  courses = Course.objects.filter(instructor_id = 2)
+  print(f"Instructor Name: {instructor[0].first_name} \n Courses: \n")
+  for instructor_course in courses:
+      print(f'-{instructor_course.name}')
     
-    print(f'{instructor_classes.instructor.first_name} {instructor_classes.instructor.last_name}')
-    print("Courses:")
-    print(f'-{instructor_classes.name}')
+
     
  
 
@@ -345,10 +346,17 @@ LIMIT 21
 def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    student_id = 15
+    # d = Student.objects.get(pk=student_id)
+    # Student.objects.filter(student_id = 15).delete(student_id)
+    # print({student_id})
+   
+ 
 
     try:
         student = Student.objects.get(pk=student_id)
+        student.delete()
+      
     except ObjectDoesNotExist:
         print('Great! It failed and couldnt find the object because we deleted it!')
 
